@@ -11,22 +11,10 @@ public class TextOutput implements Output {
             System.out.println("You Lost");
             break;
         case 2:
-            displayMenu();
-            break;
-        case 3:
             displayHelp();
             break;
         }
         System.out.println("Enter your choice:");
-        return true; // to be implemented
-    }
-    public boolean displayMenu() {
-        System.out.println("------------ Menu ------------");
-        System.out.println("Enter 'Game' to start a game");
-        System.out.println("Enter 'Help' for help");
-        System.out.println("Enter 'Score' for score");
-        System.out.println("Enter 'Quit' for quit");
-        System.out.println("------------------------------");
         return true; // to be implemented
     }
     public boolean displayHelp() {

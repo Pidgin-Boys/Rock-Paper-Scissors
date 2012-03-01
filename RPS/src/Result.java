@@ -13,14 +13,12 @@ public class Result {
               || computer.equals(Choice.ROCK) && player.equals(Choice.SCISSORS)
               || computer.equals(Choice.SCISSORS) && player.equals(Choice.PAPER))
             this.outcome = 0;
-        else if (player.equals(Choice.MENU))
-            this.outcome = 2;
         else if (player.equals(Choice.HELP))
-            this.outcome = 3;
+            this.outcome = 2;
         else if (player.equals(Choice.SCORE))
-            this.outcome = 4;
+            this.outcome = 3;
         else if (player.equals(Choice.EXIT))
-            this.outcome = 5;
+            this.outcome = 4;
         else
             this.outcome = 1;
     }

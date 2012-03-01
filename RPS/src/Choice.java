@@ -1,5 +1,5 @@
 public enum Choice {
-    ROCK(1), PAPER(2), SCISSORS(3), GAME(4), HELP(5), SCORE(6), MENU(7), EXIT(8);
+    ROCK(1), PAPER(2), SCISSORS(3), HELP(4), SCORE(5), EXIT(6);
 
     private int value;
 

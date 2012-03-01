@@ -28,14 +28,8 @@ public class TextInput implements Input {
             else if(in.equalsIgnoreCase("help")){
                 userChoice = Choice.HELP;
             }
-            else if(in.equalsIgnoreCase("menu")){
-                userChoice = Choice.MENU;
-            }
             else if(in.equalsIgnoreCase("exit")){
                 userChoice = Choice.EXIT;
-            }
-            else if(in.equalsIgnoreCase("game")){
-                userChoice = Choice.GAME;
             }
             else if(in.equalsIgnoreCase("score")){
                 userChoice = Choice.SCORE;
