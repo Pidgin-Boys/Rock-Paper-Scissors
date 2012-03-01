@@ -14,7 +14,7 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        Game g = new Game(Integer.parseInt("2"));
+        Game g = new Game(Integer.parseInt(args[0]));
         Choice c;
         Result r;
         while (g.roundsRemaining > 0)
