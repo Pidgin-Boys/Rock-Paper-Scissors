@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class TextInput implements Input {
@@ -28,17 +27,12 @@ public class TextInput implements Input {
             else if(in.equalsIgnoreCase("help")){
                 userChoice = Choice.HELP;
             }
-            else if(in.equalsIgnoreCase("exit")){
+            else if(in.equalsIgnoreCase("quit") || in.equalsIgnoreCase("exit")){
                 userChoice = Choice.EXIT;
             }
             else if(in.equalsIgnoreCase("score")){
                 userChoice = Choice.SCORE;
             }
-//            try{
-//                g.roundsRemaining = Integer.parseInt(in);
-//            } catch (NumberFormatException ex) {
-//                userChoice = null;
-//            }
             return userChoice;
         }
 }

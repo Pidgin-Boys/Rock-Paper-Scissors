@@ -1,38 +1,41 @@
 public class TextOutput implements Output {
-    public boolean displayResult(Result r) {
-        switch(r.outcome){
-        case 1:
-            System.out.println("You Win");
-            break;
-        case -1:
-            System.out.println("You Tie");
-            break;
-        case 0:
-            System.out.println("You Lost");
-            break;
-        case 2:
-            displayHelp();
-            break;
+    public void displayResult(Result r) {
+        System.out.format("You played %s. The computer played %s. ", 
+                r.getUserChoice().toString(), r.getComputerChoice().toString());
+        
+        switch(r.getOutcome()) {
+            case 1:
+                System.out.println("You won!");
+                break;
+            case -1:
+                System.out.println("You tied.");
+                break;
+            case 0:
+                System.out.println("You lost.");
+                break;
         }
-        System.out.println("Enter your choice:");
-        return true; // to be implemented
     }
-    public boolean displayHelp() {
-        System.out.println("------------ Help ------------");
-        System.out.println("Enter 'Rock' to play a rock");
-        System.out.println("Enter 'Paper' to play paper");
-        System.out.println("Enter 'Scissors' to play scissors");
-        System.out.println("Enter 'Score' for score");
-        System.out.println("Enter 'Quit' for quit");
-        System.out.println("------------------------------");
-        return true; // to be implemented
+    public void displayHelp() {
+        System.out.println("+-------------- Help ---------------+");
+        System.out.println("| Enter 'Rock' to play a rock       |");
+        System.out.println("| Enter 'Paper' to play paper       |");
+        System.out.println("| Enter 'Scissors' to play scissors |");
+        System.out.println("| Enter 'Score' for score           |");
+        System.out.println("| Enter 'Quit' to quit              |");
+        System.out.println("+-----------------------------------+");
     }
-    public boolean displayStartUp() {
-        System.out.println("Welcome to Pidgeon Boy's Rock Paper Scissor Game!");
-        System.out.println(" If You Need Help, Just Type 'Help' at Any Time");
-        System.out.println("-------------------------------------------------");
-        System.out.print("Enter Your Throw:");
+    public void displayStartup() {
+        System.out.println("Welcome to The Pigeon Boys' Rock Paper Scissor Game!");
+        System.out.println("If you need help, just type 'help' into the console.");
+        System.out.println("----------------------------------------------------");
 //        System.out.print("Enter How Many Rounds You Would Like to Play:");
-        return true;
+    }
+    
+    public void displayScore() {
+        // implement me!
+    }
+    
+    public void promptUser() {        
+        System.out.print("Enter your choice: ");
     }
 }
