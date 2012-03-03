@@ -31,8 +31,8 @@ public class TextOutput implements Output {
 //        System.out.print("Enter How Many Rounds You Would Like to Play:");
     }
     
-    public void displayScore() {
-        // implement me!
+    public void displayScore(int[] a) {
+        System.out.println("Wins = " + a[0] + " Losses = " + a[1] + " Ties = " + a[2]);
     }
     
     public void promptUser() {        
