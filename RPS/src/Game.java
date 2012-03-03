@@ -48,11 +48,12 @@ public class Game {
             else if (userChoice.equals(Choice.HELP))
                 g.output.displayHelp();
             else if (userChoice.equals(Choice.SCORE))
-                g.output.displayScore();
+                g.output.displayScore(g.history.getScore());
             else if (userChoice.equals(Choice.EXIT))
                 System.exit(1);
             else
                 System.out.println("Invalid command.");
         }
+        g.output.displayScore(g.history.getScore());
     }
 }
