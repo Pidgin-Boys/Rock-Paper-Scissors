@@ -10,7 +10,7 @@ public class Game {
         this.output  = new TextOutput();
         this.engine  = new RandomEngine();
         this.history = new ResultDatabase();
-        this.roundsRemaining = 0;
+        this.roundsRemaining = 1;
     }
     
     public void setRounds(int rounds) {
@@ -18,16 +18,15 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        if(args.length == 0) 
-            System.out.println("You must enter the number of rounds to play as an argument.");
-        
         Game g = new Game();
-        try {
-            g.setRounds(Integer.parseInt(args[0]));
-        }
-        catch (NumberFormatException ex) {
-            System.out.println("Invalid argument. Must be a positive integer.");
-            System.exit(1);
+        if (args.length > 0) {
+            try {
+                g.setRounds(Integer.parseInt(args[0]));
+            }
+            catch (NumberFormatException ex) {
+                System.out.println("Invalid argument. Must be a positive integer.");
+                System.exit(1);
+            }
         }
         g.output.displayStartup();
         
@@ -35,9 +34,11 @@ public class Game {
         Result result;
         while (g.roundsRemaining > 0)
         {
-            g.output.promptUser();
+            g.output.displayPrompt();
             userChoice = g.input.getUserChoice();
-            if (userChoice.getValue() < 4) {
+            if (userChoice == null)
+                System.out.println("Invalid command.");
+            else if (userChoice.getValue() < 4) {
                 --g.roundsRemaining;
                 compChoice = g.engine.getComputerChoice();
                 result     = new Result(userChoice, compChoice);
@@ -50,9 +51,7 @@ public class Game {
             else if (userChoice.equals(Choice.SCORE))
                 g.output.displayScore();
             else if (userChoice.equals(Choice.EXIT))
-                System.exit(1);
-            else
-                System.out.println("Invalid command.");
+                break;
         }
     }
 }
