@@ -49,9 +49,10 @@ public class Game {
             else if (userChoice.equals(Choice.HELP))
                 g.output.displayHelp();
             else if (userChoice.equals(Choice.SCORE))
-                g.output.displayScore();
+                g.output.displayScore(g.history.getScore());
             else if (userChoice.equals(Choice.EXIT))
                 break;
         }
+        g.output.displayScore(g.history.getScore());
     }
 }
