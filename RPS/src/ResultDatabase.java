@@ -1,45 +1,37 @@
-import java.util.*;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.util.ArrayList;
 
-/**
- *
- * @author Danny
- */
-public class ResultsDataBase {
-
+public class ResultDatabase {
     private ArrayList<Result> results;
-    int t, p, c, s = 0;
-    public ResultsDataBase()
-    {
+    private int ties, playerWins, computerWins;
+    
+    public ResultDatabase() {
         results = new ArrayList<Result>();
+        ties = 0; playerWins = 0; computerWins = 0;
     }
 
-    public boolean addResult(Result r)
-    {
-        int i = results.size();
+    public boolean add(Result r) {
         results.add(r);
-        s = r.getOutcome();
-                if(s == 0)
-                    c++;
-                else if(s == 1)
-                    p++;
-                else
-                    t++;
-        if(results.size() > i)
-            return true;
-        else
-            return false;
+        int outcome = r.getOutcome();
+        switch(outcome) {
+            case -1:
+                ++ties;
+                return true;
+            case 0: 
+                ++computerWins;
+                return true;
+            case 1:
+                ++playerWins;
+                return true;
+        }
+        return true;
     }
 
     public int[] getScore()
     {
         int[] a = new int[3];
-        a[0] = p;
-        a[1] = c;
-        a[2] = t;
+        a[0] = playerWins;
+        a[1] = computerWins;
+        a[2] = ties;
         return a;
     }
 }
