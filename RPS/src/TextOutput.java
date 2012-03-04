@@ -35,7 +35,7 @@ public class TextOutput implements Output {
         // implement me!
     }
     
-    public void promptUser() {        
+    public void displayPrompt() {        
         System.out.print("Enter your choice: ");
     }
 }
