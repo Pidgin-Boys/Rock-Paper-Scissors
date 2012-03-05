@@ -30,7 +30,7 @@ public class Game {
         }
         g.output.displayStartup();
         
-        Choice userChoice, compChoice;
+        Choice userChoice;
         Result result;
         while (g.roundsRemaining > 0)
         {
@@ -40,9 +40,7 @@ public class Game {
                 System.out.println("Invalid command.");
             else if (userChoice.getValue() < 4) {
                 --g.roundsRemaining;
-                compChoice = g.engine.getComputerChoice();
-                result     = new Result(userChoice, compChoice);
-
+                result = new Result(userChoice, g.engine.getComputerChoice());
                 g.history.add(result);
                 g.output.displayResult(result);
             }
