@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class TextInput implements Input {
+public class TextInput extends Input {
     
     private String in;
     private Scanner key;
     
-    public TextInput()
-    {
+    public TextInput(){
+        
         key = new Scanner(System.in);
     }
 

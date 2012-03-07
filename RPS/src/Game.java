@@ -4,13 +4,20 @@ public class Game {
     private DecisionEngine engine;
     private ResultDatabase history;
     private int            roundsRemaining;
+    private int            type; //type of engine/input/output (will change it)
 
     public Game() {
-        this.input   = new TextInput();
-        this.output  = new TextOutput();
-        this.engine  = new RandomEngine();
+        //this.input   = new TextInput();
+        //this.output  = new TextOutput();
+        //this.engine  = new RandomEngine();
         this.history = new ResultDatabase();
         this.roundsRemaining = 1;
+        
+        this.type = 1; //default 1
+        this.input = Input.makeInput(type);
+        this.output = Output.makeOutput(type);
+        this.engine = DecisionEngine.makeDecision(type);
+        
     }
     
     public void setRounds(int rounds) {

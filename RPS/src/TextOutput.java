@@ -1,4 +1,4 @@
-public class TextOutput implements Output {
+public class TextOutput extends Output {
     public void displayResult(Result r) {
         System.out.format("You played %s. The computer played %s. ", 
                 r.getUserChoice().toString(), r.getComputerChoice().toString());
