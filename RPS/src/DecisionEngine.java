@@ -1,16 +1,14 @@
-public abstract class DecisionEngine {
-    public static DecisionEngine engine;
-    
-    public static DecisionEngine makeDecision(int type){
-        switch(type)
-        {
-            case 1: engine = new RandomEngine();
-            //case 2:  engine = new SmartEngine();
-            //case 3: engine = new GeniusEngine();
-            //default: engine = new RandomEngine();
-        }
-        
-        return engine;
+public abstract class DecisionEngine {    
+    public static DecisionEngine makeEngine(String type){
+        if (type.equals("random"))
+            return new RandomEngine();
+        //else if (type.equals("smart"))
+        //    return new SmartEngine();
+        //else if (type.equals("predictive"))
+        //    return new PredictiveEngine();
+        else
+            return new RandomEngine(); // default to random
     }
+    
     public abstract Choice getComputerChoice();
 }

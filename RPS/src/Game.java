@@ -4,37 +4,30 @@ public class Game {
     private DecisionEngine engine;
     private ResultDatabase history;
     private int            roundsRemaining;
-    private int            type; //type of engine/input/output (will change it)
 
-    public Game() {
-        //this.input   = new TextInput();
-        //this.output  = new TextOutput();
-        //this.engine  = new RandomEngine();
+    public Game(String inputType, String outputType, String engineType, int rounds) {
+        this.input   = Input.makeInput(inputType);
+        this.output  = Output.makeOutput(outputType);
+        this.engine  = DecisionEngine.makeEngine(engineType);
+        
         this.history = new ResultDatabase();
-        this.roundsRemaining = 1;
-        
-        this.type = 1; //default 1
-        this.input = Input.makeInput(type);
-        this.output = Output.makeOutput(type);
-        this.engine = DecisionEngine.makeDecision(type);
-        
-    }
-    
-    public void setRounds(int rounds) {
-        this.roundsRemaining = rounds;
+        this.roundsRemaining = rounds;        
     }
 
     public static void main(String[] args) {
-        Game g = new Game();
+        int rounds = 1;
+        
+        // Get the number of rounds from first argument
         if (args.length > 0) {
             try {
-                g.setRounds(Integer.parseInt(args[0]));
+                rounds = Integer.parseInt(args[0]);
             }
             catch (NumberFormatException ex) {
                 System.out.println("Invalid argument. Must be a positive integer.");
                 System.exit(1);
             }
         }
+        Game g = new Game("text", "text", "random", rounds);
         g.output.displayStartup();
         
         Choice userChoice;
@@ -43,8 +36,10 @@ public class Game {
         {
             g.output.displayPrompt();
             userChoice = g.input.getUserChoice();
-            if (userChoice == null)
-                System.out.println("Invalid command.");
+            if (userChoice == null || userChoice.getValue() > 6) {
+                System.out.println("Invalid command. Please choose from the following: ");
+                g.output.displayHelp();
+            }
             else if (userChoice.getValue() < 4) {
                 --g.roundsRemaining;
                 result = new Result(userChoice, g.engine.getComputerChoice());

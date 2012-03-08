@@ -32,7 +32,9 @@ public class TextOutput extends Output {
     }
     
     public void displayScore(int[] a) {
-        System.out.println("Wins = " + a[0] + " Losses = " + a[1] + " Ties = " + a[2]);
+        System.out.println("+-------------- Score --------------+");
+        System.out.format ("| Wins   = %-25d|\n| Losses = %-25d|\n| Ties   = %-25d|\n", a[0], a[1], a[2]);
+        System.out.println("+-----------------------------------+");
     }
     
     public void displayPrompt() {        

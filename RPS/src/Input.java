@@ -1,15 +1,11 @@
 public abstract class Input {
-    public static Input input;
-    
-    public static Input makeInput(int type){
-        switch(type)
-        {
-            case 1: input = new TextInput();
-            //case 2:  input = new GUIInput();
-            //default: input = new TextInput();
-        }
-        
-        return input;
+    public static Input makeInput(String type){
+        if (type.equals("text")) 
+            return new TextInput();
+        //else if (type.equals("gui"))
+        //    return new GUIInput();
+        else
+            return new TextInput(); // default to command line input
     }
     
     public abstract Choice getUserChoice();
