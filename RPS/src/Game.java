@@ -5,6 +5,13 @@ public class Game {
     private ResultDatabase history;
     private int            roundsRemaining;
 
+     /*
+     * Creates Game constructor and initializes instance variables
+     * @param inputType - Type of input choosen for this game
+     * @param outputType - Type of output choosen for this game
+     * @param engineType - Type of method used to generate computer output for this game
+     * @param rounds - number of rounds this game will be 
+     */
     public Game(String inputType, String outputType, String engineType, int rounds) {
         this.input   = Input.makeInput(inputType);
         this.output  = Output.makeOutput(outputType);
@@ -32,6 +39,9 @@ public class Game {
         
         Choice userChoice;
         Result result;
+         /* Continue playing game while rounds remain
+         * Determine user input for each round, and take appropiate actoin
+         */
         while (g.roundsRemaining > 0)
         {
             g.output.displayPrompt();
@@ -53,6 +63,7 @@ public class Game {
             else if (userChoice.equals(Choice.EXIT))
                 break;
         }
+         // Display score when game ends
         g.output.displayScore(g.history.getScore());
     }
 }
