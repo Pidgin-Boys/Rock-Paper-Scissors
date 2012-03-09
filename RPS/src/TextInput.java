@@ -5,12 +5,20 @@ public class TextInput extends Input {
     private String in;
     private Scanner key;
     
+    /*
+     * Creates a new TextInput constructor
+     * Initializes instance variable key to equal the input of the user
+     */
     public TextInput(){
         
         key = new Scanner(System.in);
     }
 
     @Override
+    /*
+     * Determines what command the user entered
+     * @return the choice object that contains the user's input
+     */
     public Choice getUserChoice() {
         Choice userChoice = null;
         in = key.nextLine();
