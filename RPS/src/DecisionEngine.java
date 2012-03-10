@@ -1,4 +1,7 @@
-public abstract class DecisionEngine {    
+public abstract class DecisionEngine {
+    /**@param type String "random" or "predictive"
+     * @return returns a new DecisionEngine of the given type
+     */
     public static DecisionEngine makeEngine(String type){
         if (type.equals("random"))
             return new RandomEngine();

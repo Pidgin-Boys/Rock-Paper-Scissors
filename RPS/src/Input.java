@@ -1,4 +1,7 @@
 public abstract class Input {
+    /**@param type String: "text" or "gui" 
+     * @return new Input object of the given type
+     */
     public static Input makeInput(String type){
         if (type.equals("text")) 
             return new TextInput();

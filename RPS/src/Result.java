@@ -4,9 +4,9 @@ public class Result {
     private int    outcome; // 1 = player won, 0 = computer won,  -1 = draw
 
     /*
-     * Creates a Result constructor that compares the player and computer choices to determine a winner
-     * @param player - the player's choice
-     * @param computer - the computer's choice
+     * Creates a Result constructor that compares the player and computer Choices to determine a winner
+     * @param player - the player's Choice
+     * @param computer - the computer's Choice
      */
     public Result(Choice player, Choice computer) {
         this.computer = computer;
@@ -29,14 +29,14 @@ public class Result {
         return computer;
     }
      /* Gets the player's choice
-     * @return decision player made
+     * @return Choice representing user's input
      */
     public Choice getUserChoice() {
         return player;
     }
      /*
      * Gets the outcome of the round
-     * @return integer corresponding to the outcome of the round
+     * @return 1 if player won, 0 if computer, -1 if draw
      */
     public int getOutcome() {
         return outcome;

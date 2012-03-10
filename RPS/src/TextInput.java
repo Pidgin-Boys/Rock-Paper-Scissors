@@ -6,11 +6,11 @@ public class TextInput extends Input {
     private Scanner key;
     
     /*
-     * Creates a new TextInput constructor
-     * Initializes instance variable key to equal the input of the user
+     * Creates a new TextInput object
+     * Initializes key to a console input scanner
      */
-    public TextInput(){
-        
+    public TextInput() 
+    {        
         key = new Scanner(System.in);
     }
 

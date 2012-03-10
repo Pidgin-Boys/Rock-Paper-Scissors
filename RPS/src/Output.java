@@ -1,4 +1,7 @@
-public abstract class Output {    
+public abstract class Output {
+    /**@param type String : "text" or "gui"
+     * @return a new Output object of the given type
+     */
     public static Output makeOutput(String type){
         if (type.equals("text"))
             return new TextOutput();
@@ -11,6 +14,6 @@ public abstract class Output {
     public abstract void displayHelp();
     public abstract void displayPrompt();
     public abstract void displayStartup();
-    public abstract void displayScore(int[] a);
-    public abstract void displayResult(Result r);
+    public abstract void displayScore(int[] score);
+    public abstract void displayResult(Result result);
 }
