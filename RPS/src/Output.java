@@ -15,5 +15,5 @@ public abstract class Output {
     public abstract void displayPrompt();
     public abstract void displayStartup();
     public abstract void displayScore(int[] score);
-    public abstract void displayResult(Result result);
+    public abstract void displayResult(Result r);
 }

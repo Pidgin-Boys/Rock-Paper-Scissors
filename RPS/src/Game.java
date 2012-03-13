@@ -2,8 +2,9 @@ public class Game {
     private Input          input;
     private Output         output;
     private DecisionEngine engine;
-    private ResultDatabase history;
-    private int            roundsRemaining;
+    
+    private static ResultDatabase history;
+    private int roundsRemaining;
 
      /*
      * Creates Game constructor and initializes instance variables
@@ -39,9 +40,8 @@ public class Game {
         
         Choice userChoice;
         Result result;
-         /* Continue playing game while rounds remain
-         * Determine user input for each round, and take appropiate actoin
-         */
+         // Continue playing game while rounds remain
+         // Determine user input for each round, and take appropiate actoin
         while (g.roundsRemaining > 0)
         {
             g.output.displayPrompt();
@@ -52,7 +52,7 @@ public class Game {
             }
             else if (userChoice.getValue() < 4) {
                 --g.roundsRemaining;
-                result = new Result(userChoice, g.engine.getComputerChoice());
+                result = new Result(userChoice, g.engine.getComputerChoice(history));
                 g.history.add(result);
                 g.output.displayResult(result);
             }

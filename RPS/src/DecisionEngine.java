@@ -13,5 +13,5 @@ public abstract class DecisionEngine {
             return new RandomEngine(); // default to random
     }
     
-    public abstract Choice getComputerChoice();
+    public abstract Choice getComputerChoice(ResultDatabase history);
 }

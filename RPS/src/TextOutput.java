@@ -3,11 +3,11 @@ public class TextOutput extends Output {
      * Displays the result of the previous round
      * @param r - the result object containing the outcome of the previous round
      */
-    public void displayResult(Result result) {
+    public void displayResult(Result r) {
         System.out.format("You played %s. The computer played %s. ", 
-                result.getUserChoice().toString(), result.getComputerChoice().toString());
+                r.getUserChoice().toString(), r.getComputerChoice().toString());
         
-        switch(result.getOutcome()) {
+        switch(r.getOutcome()) {
             case 1:
                 System.out.println("You won!");
                 break;

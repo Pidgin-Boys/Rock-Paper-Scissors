@@ -1,9 +1,10 @@
 public class RandomEngine extends DecisionEngine{
-    /*
-     * Randomly generates the computer's choice
-     * @return the computer's choice
+    /**
+     * Randomly generates the computer's Choice
+     * @param history this parameter is ignored for random choice.
+     * @return Choice : the computer's choice
      */
-    public Choice getComputerChoice() {
+    public Choice getComputerChoice(ResultDatabase history) {
         int rand = (int) (Math.random() * 3 + 1); // get randint from 1 to 3
         switch(rand) {
             case 1:  return Choice.ROCK;
