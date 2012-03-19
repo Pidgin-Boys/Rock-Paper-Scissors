@@ -63,7 +63,14 @@ public class Game {
             else if (userChoice.equals(Choice.EXIT))
                 break;
         }
-         // Display score when game ends
-        g.output.displayScore(g.history.getScore());
+         // Display score when game ends and state the winner
+        int[] score = g.history.getScore();
+        if (score[0] > score[1]) 
+            System.out.println("Congratulations, you beat the computer!");
+        else if (score[0] == score[1]) 
+            System.out.println("You tied with the computer.");
+        else 
+            System.out.println("The computer beat you; better luck next time.");
+        g.output.displayScore(score);
     }
 }
