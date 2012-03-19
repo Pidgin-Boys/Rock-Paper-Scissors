@@ -96,7 +96,7 @@ public class ResultDatabase {
      * @param seq String : the sequence to check occurrences on
      * @return int : the number of occurrences of seq
      */
-    public int getNumberOfSequences(String seq) {
+    public int getOccurrences(String seq) {
         return sequences.get(seq);
     }
     
