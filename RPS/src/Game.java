@@ -54,6 +54,13 @@ public class Game {
                 --g.roundsRemaining;
                 result = new Result(userChoice, g.engine.getComputerChoice(history));
                 g.history.add(result);
+                
+//                System.out.println(g.history.getLastNMoves(1));
+//                System.out.println(g.history.getLastNMoves(2));
+//                System.out.println(g.history.getLastNMoves(3));
+//                System.out.println(g.history.getLastNMoves(4));
+//                g.history.printSequenceMap();
+                
                 g.output.displayResult(result);
             }
             else if (userChoice.equals(Choice.HELP))
