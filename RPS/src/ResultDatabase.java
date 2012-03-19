@@ -42,10 +42,10 @@ public class ResultDatabase {
         
         // get the computer and user choices and add to the move sequence (ends with human's choice)
         // and the last four moves (ending  with the computer's choice)
-        String u       = r.getUserChoice().toString().substring(0,1);
-        String c       = r.getComputerChoice().toString().substring(0,1);
-        sequence       = lastFourMoves + u;
-        lastFourMoves += u + c;
+        String u      = r.getUserChoice().toString().substring(0,1);
+        String c      = r.getComputerChoice().toString().substring(0,1);
+        sequence      = lastFourMoves + u;
+        lastFourMoves = sequence + c;
                 
         // update lastMovesLength anad sequenceLength -- only need to update while last four moves are not saturated
         if (lastMovesLength < 4) {
