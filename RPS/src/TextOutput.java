@@ -1,13 +1,16 @@
-public class TextOutput extends Output {
+public class TextOutput extends Output 
+{
     /**
      * Displays the result of the previous round
      * @param r - the result object containing the outcome of the previous round
      */
-    public void displayResult(Result r) {
+    public void displayResult(Result r) 
+    {
         System.out.format("You played %s. The computer played %s. ", 
                 r.getUserChoice().toString(), r.getComputerChoice().toString());
         
-        switch(r.getOutcome()) {
+        switch(r.getOutcome()) 
+        {
             case 1:
                 System.out.println("You won!");
                 break;
@@ -21,22 +24,23 @@ public class TextOutput extends Output {
     }
     
     /** Displays the help message generated after entering the help command */    
-    public void displayHelp() {
-        System.out.println("+-------------- Help ---------------+");
-        System.out.println("| Enter 'Rock' to play a rock       |");
-        System.out.println("| Enter 'Paper' to play paper       |");
-        System.out.println("| Enter 'Scissors' to play scissors |");
-        System.out.println("| Enter 'Score' for score           |");
-        System.out.println("| Enter 'Quit' to quit              |");
-        System.out.println("+-----------------------------------+");
+    public void displayHelp() 
+    {
+        System.out.println("+-------------- Help ---------------+\n"
+                         + "| Enter 'Rock' to play a rock       |\n"
+                         + "| Enter 'Paper' to play paper       |\n"
+                         + "| Enter 'Scissors' to play scissors |\n"
+                         + "| Enter 'Score' for score           |\n"
+                         + "| Enter 'Quit' to quit              |\n"
+                         + "+-----------------------------------+\n");
     }
     
     /** Displays the start up  menu at the beginning of the game */
-    public void displayStartup() {
-        System.out.println("Welcome to The Pigeon Boys' Rock Paper Scissor Game!");
-        System.out.println("If you need help, just type 'help' into the console.");
-        System.out.println("----------------------------------------------------");
-//      System.out.print("Enter How Many Rounds You Would Like to Play:");
+    public void displayStartup() 
+    {
+        System.out.println("Welcome to The Pigeon Boys' Rock Paper Scissor Game!\n"
+                         + "If you need help, just type 'help' into the console.\n"
+                         + "----------------------------------------------------\n");
     }
     
     /**
@@ -44,17 +48,22 @@ public class TextOutput extends Output {
      * @param a - the array containing the amount of player wins, computer wins, and draws
      * for the current game
      */
-    public void displayScore(int[] score) {
+    public void displayScore(int[] score, boolean displayWinner) 
+    {
         System.out.println("\n+-------------- Score --------------+");
         System.out.format ("| Wins   = %-25d|\n| Losses = %-25d|\n| Draws  = %-25d|\n", score[0], score[1], score[2]);
         System.out.println("+-----------------------------------+");
-        if      (score[0] >  score[1]) System.out.println("Congratulations, you beat the computer!");
-        else if (score[0] == score[1]) System.out.println("You tied with the computer.");
-        else                           System.out.println("The computer beat you; better luck next time.");
+        if (displayWinner) 
+        {
+            if (score[0] >  score[1]) 
+                System.out.println("Congratulations, you beat the computer!");
+            else if (score[0] == score[1]) 
+                System.out.println("You tied with the computer.");
+            else
+                System.out.println("The computer beat you; better luck next time.");
+        }
     }
     
     /** Displays a message prompting the user to enter their choice */
-    public void displayPrompt() {        
-        System.out.print("Enter your choice: ");
-    }
+    public void displayPrompt() { System.out.print("Enter your choice: "); }
 }
