@@ -71,7 +71,7 @@ public class ResultDatabase
      */
     public String getLastNMoves(int n) 
     {
-        return lastFour.length() == 4 ? lastFour.substring(4-n) : null;
+        return lastFour.length() == 4 ? lastFour.substring(4-n) : "";
     }
         
     /**@param seq String : the move sequence to check the occurrences of
