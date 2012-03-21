@@ -38,8 +38,9 @@ public class Game
             }
         } 
         Game g = new Game("text", "text", "random", rounds);
-        Choice choice;
+        Choice choice; 
         Result result;
+        
          // Continue playing game while rounds remain
          // Determine user input for each round, and take appropiate action
         g.output.displayStartup();
@@ -61,7 +62,7 @@ public class Game
             }
             else if (choice.equals(Choice.HELP))  g.output.displayHelp();
             else if (choice.equals(Choice.SCORE)) g.output.displayScore(g.history.getScore(), false);
-            else if (choice.equals(Choice.EXIT))  break;
+            else break; // if (choice.equals(Choice.EXIT))  
         }
          // Display score when game ends and state the winner
         g.output.displayScore(g.history.getScore(), true);

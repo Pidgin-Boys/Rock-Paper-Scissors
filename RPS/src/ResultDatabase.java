@@ -3,8 +3,8 @@ import java.util.HashMap;
 public class ResultDatabase 
 {
     private HashMap<String, Integer> sequences;
-    private int ties, playerWins, computerWins, lastMovesLength, sequenceLength;
-    private String sequence, lastFourMoves;
+    private int ties, playerWins, computerWins;
+    private String sequence, lastFour;
     
     /**Creates a new ResultDatabase that keeps track of wins, losses, and ties.
      * Uses a HashMap to map throw sequences to number of occurrences
@@ -15,45 +15,32 @@ public class ResultDatabase
     public ResultDatabase() 
     {
         sequences = new HashMap<String, Integer>();
-        ties = playerWins = computerWins = lastMovesLength = sequenceLength = 0;
-        sequence = lastFourMoves  = "";
+        ties = playerWins = computerWins = 0;
+        sequence = lastFour  = "";
     }
     
-    /**
-     * Adds the given sequence to the sequence map, or increments it if it exists
+    /**Adds the given sequence to the sequence map, or increments it if it exists
      * @param seq String : sequence to add to map
      */
-    private void putInMap(String seq) 
+    private void put(String seq) 
     {
         Integer val = sequences.get(seq);
         sequences.put(seq, (val != null) ? val+1 : 1);
     }
 
-    /**
-     * Add a round result to the result database
-     * @param r - the result to add
+    /**@param r - the result to add to the database
      * @return true if the result was added to the database successfully
      */
     public boolean add(Result r) 
     {   
-        // get the computer and user choices and add to the move sequence (ends with human's choice)
-        // and the last four moves (ending  with the computer's choice)
-        sequence      = lastFourMoves + r.getUserChoice().toString().substring(0,1);
-        lastFourMoves = sequence + r.getComputerChoice().toString().substring(0,1);
-                
-        // update lastMovesLength and sequenceLength until sequences are saturated
-        if (lastMovesLength < 4) 
-        {
-            lastMovesLength = lastFourMoves.length();
-            sequenceLength  = sequence.length();
-        } else 
-        {
-            sequenceLength  = 5; // can't find a way to make this more efficient AND add the sequences before saturation
-            lastFourMoves   = lastFourMoves.substring(2);
-        } 
-        // add the last N=2,3,4,5 character sequences to the map if sequence is long enough
-        for (int i = 1; i < sequenceLength; ++i) 
-            putInMap(sequence.substring(i-1));
+        // update the move sequence and the last four moves (including computer's move)
+        sequence = lastFour + r.getUserChoice().toString().substring(0,1);
+        lastFour = sequence + r.getComputerChoice().toString().substring(0,1);
+        if (lastFour.length() == 6) lastFour = lastFour.substring(2);
+        
+        // add the last N=2,3,4,5 character sequences to the map
+        for (int i = 1; i < sequence.length(); ++i) 
+            put(sequence.substring(i-1));
         
         switch(r.getOutcome()) 
         {
@@ -63,16 +50,13 @@ public class ResultDatabase
             case 0: 
                 ++computerWins;
                 return true;
-            case 1:
+            default:
                 ++playerWins;
-            default: return true;
+                return true;
         }
     }
 
-     /**
-     * Gets the score for the current game
-     * @return int[playerWins, computerWins, ties]
-     */
+     /** @return The score in the format: int[playerWins, computerWins, ties] */
     public int[] getScore()
     {
         int[] score = new int[3];
@@ -87,7 +71,7 @@ public class ResultDatabase
      */
     public String getLastNMoves(int n) 
     {
-        return lastMovesLength == 4 ? lastFourMoves.substring(4-n) : null;
+        return lastFour.length() == 4 ? lastFour.substring(4-n) : null;
     }
         
     /**@param seq String : the move sequence to check the occurrences of
