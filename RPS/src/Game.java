@@ -37,7 +37,7 @@ public class Game
                 System.exit(1);
             }
         } 
-        Game g = new Game("text", "text", "random", rounds);
+        Game g = new Game("text", "text", "smart", rounds);
         Choice choice; 
         Result result;
         
