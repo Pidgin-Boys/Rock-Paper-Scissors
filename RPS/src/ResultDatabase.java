@@ -33,7 +33,6 @@ public class ResultDatabase
      */
     public boolean add(Result r) 
     {   
-        // update the move sequence and the last four moves (including computer's move)
         sequence = lastFour + r.getUserChoice().toString().substring(0,1);
         lastFour = sequence + r.getComputerChoice().toString().substring(0,1);
         if (lastFour.length() == 6) lastFour = lastFour.substring(2);
@@ -56,7 +55,7 @@ public class ResultDatabase
         }
     }
 
-     /** @return The score in the format: int[playerWins, computerWins, ties] */
+     /**@return Returns the score as int[playerWins, computerWins, ties] */
     public int[] getScore()
     {
         int[] score = new int[3];
@@ -77,11 +76,9 @@ public class ResultDatabase
     /**@param seq String : the move sequence to check the occurrences of
      * @return int : the number of occurrences of seq
      */
-    public int getOccurrences(String seq) { 
-        int result = 0;
-        if (sequences.get(seq) != null){
-           result = sequences.get(seq);
-        }
-        return result; 
+    public int getOccurrences(String seq) 
+    { 
+        Integer occ = sequences.get(seq);
+        return occ != null ? occ : 0;
     }
 }
