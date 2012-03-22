@@ -77,5 +77,11 @@ public class ResultDatabase
     /**@param seq String : the move sequence to check the occurrences of
      * @return int : the number of occurrences of seq
      */
-    public int getOccurrences(String seq) { return sequences.get(seq); }
+    public int getOccurrences(String seq) { 
+        int result = 0;
+        if (sequences.get(seq) != null){
+           result = sequences.get(seq);
+        }
+        return result; 
+    }
 }
