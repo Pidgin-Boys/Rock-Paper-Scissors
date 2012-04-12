@@ -13,7 +13,8 @@ public class Game {
      * @param engineType - String : "smart" or "predictive" Which AI Engine to use.
      * @param rounds - int : number of rounds the game will last
      */
-    public Game(String inputType, String outputType, String engineType, int rounds) {
+    public Game(String inputType, String outputType, String engineType, int rounds) 
+    {
         this.input   = Input.makeInput(inputType);
         this.output  = Output.makeOutput(outputType);
         this.engine  = DecisionEngine.makeEngine(engineType);
@@ -22,40 +23,40 @@ public class Game {
         this.roundsRemaining = rounds;        
     }
 
-    public static void main(String[] args) {
+    public void setRounds(int rounds) { roundsRemaining = rounds; }
+    
+    public static void main(String[] args)
+    {
+        if (args.length == 0) 
+            runGUI(args);
+        else 
+            runCLI(args);
+    }
+        
+    public static boolean runCLI(String[] args)
+    {
         int rounds = 5;
         String engType = "smart";
         
-        // Get the number of rounds from first argument, and the engine type from the second
-        if (args.length == 0)
-        {   
-            System.out.println("Usage: rps <number of rounds> <'smart' or 'random'>"
-                             + "                                     |\n"
-                             + "                                     |\n"
-                             + "specifies the AI Engine Type --------+\n\n"
-                             + "Defaulting to Smart AI Engine and 5 rounds.\n");
-        } 
-        else // if (args.length > 0) 
+        try { rounds = Integer.parseInt(args[0]); }
+        catch (NumberFormatException ex) 
         {
-            try { rounds = Integer.parseInt(args[0]); }
-            catch (NumberFormatException ex) 
+            System.out.println("Invalid rounds argument (arg1). Must be a positive integer.");
+            System.exit(1);
+        }
+        if (args.length == 2) 
+        {
+            engType = args[1].toLowerCase();
+            if (!engType.equals("random") && !engType.equals("smart") /* && !engType.equals("predictive") */)
             {
-                System.out.println("Invalid rounds argument (arg1). Must be a positive integer.");
-                System.exit(1);
+                engType = "smart";
+                System.out.println("Incorrect argument for AI Engine type. Must be 'smart' or 'random'\n"
+                                    + "Defaulting to the Smart AI Engine.\n");
             }
-            if (args.length == 2) 
-            {
-                engType = args[1].toLowerCase();
-                if (!engType.equals("random") && !engType.equals("smart") /* && !engType.equals("predictive") */)
-                {
-                    engType = "smart"; // default to random engine
-                    System.out.println("Incorrect argument for AI Engine type. Must be 'smart' or 'random'\n"
-                                     + "Defaulting to the Smart AI Engine.\n");
-                }
-            }
-            else System.out.println("No second argument provided. Must be 'smart' or 'random'\n"
-                                  + "Defaulting to Smart AI Engine.");   
-        }        
+        }
+        else System.out.println("No second argument provided. Must be 'smart' or 'random'\n"
+                                + "Defaulting to Smart AI Engine.");   
+            
         Game g = new Game("text", "text", engType, rounds);
         g.output.displayStartup();
         
@@ -82,10 +83,25 @@ public class Game {
             else if (userChoice.equals(Choice.HELP))
                 g.output.displayHelp();
             else if (userChoice.equals(Choice.SCORE))
-                g.output.displayScore(g.history.getScore(), false);
+                g.output.displayScore(g.history.getScore());
             else break; // (userChoice.equals(Choice.EXIT))
         }
-         // Display score when game ends
-        g.output.displayScore(g.history.getScore(), true);
+        int[] score = g.history.getScore();
+        g.output.displayScore(score);
+        g.output.displayWinner(score);
+        return true;
+    }
+    
+    public static boolean runGUI(String[] args)
+    {
+        // create the game object with a default rounds value so we can call methods
+        Game g = new Game("gui", "gui", "smart", 5);
+        g.output.displayStartup();
+        // get the user's input for # of rounds and then change it
+        //g.setRounds(the user's input at the starting prompt);
+        
+        // insert code to handle the interface interactions. 
+        // encapsulate by having the actionListeners call functions from g.output
+        return true;
     }
 }

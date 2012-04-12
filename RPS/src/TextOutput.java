@@ -48,20 +48,21 @@ public class TextOutput extends Output
      * @param a - the array containing the amount of player wins, computer wins, and draws
      * for the current game
      */
-    public void displayScore(int[] score, boolean displayWinner) 
+    public void displayScore(int[] score) 
     {
         System.out.println("\n+-------------- Score --------------+");
         System.out.format ("| Wins   = %-25d|\n| Losses = %-25d|\n| Draws  = %-25d|\n", score[0], score[1], score[2]);
         System.out.println("+-----------------------------------+");
-        if (displayWinner) 
-        {
-            if (score[0] >  score[1]) 
-                System.out.println("Congratulations, you beat the computer!");
-            else if (score[0] == score[1]) 
-                System.out.println("You tied with the computer.");
-            else
-                System.out.println("The computer beat you; better luck next time.");
-        }
+    }
+    
+    public void displayWinner(int[] score)
+    {        
+        if (score[0] >  score[1]) 
+            System.out.println("Congratulations, you beat the computer!");
+        else if (score[0] == score[1]) 
+            System.out.println("You tied with the computer.");
+        else
+            System.out.println("The computer beat you; better luck next time.");
     }
     
     /** Displays a message prompting the user to enter their choice */
