@@ -33,7 +33,7 @@ public class Game {
             runCLI(args);
     }
         
-    public static boolean runCLI(String[] args)
+    public static void runCLI(String[] args)
     {
         int rounds = 5;
         String engType = "smart";
@@ -89,10 +89,9 @@ public class Game {
         int[] score = g.history.getScore();
         g.output.displayScore(score);
         g.output.displayWinner(score);
-        return true;
     }
     
-    public static boolean runGUI(String[] args)
+    public static void runGUI(String[] args)
     {
         // create the game object with a default rounds value so we can call methods
         Game g = new Game("gui", "gui", "smart", 5);
@@ -102,6 +101,5 @@ public class Game {
         
         // insert code to handle the interface interactions. 
         // encapsulate by having the actionListeners call functions from g.output
-        return true;
     }
 }
