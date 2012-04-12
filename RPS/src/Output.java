@@ -6,7 +6,7 @@ public abstract class Output
     public static Output makeOutput(String type)
     {
         if (type.equals("text")) return new TextOutput();
-        //else if (type.equals("gui")) return new GUIOutput();
+        if (type.equals("gui")) return new GUIOutput();
         else return new TextOutput(); // default to CLI
     }
     

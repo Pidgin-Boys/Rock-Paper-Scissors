@@ -55,36 +55,36 @@ public class Game {
             }
         }
         else System.out.println("No second argument provided. Must be 'smart' or 'random'\n"
-                                + "Defaulting to Smart AI Engine.");   
+                                + "Defaulting to the Smart AI Engine.");   
             
         Game g = new Game("text", "text", engType, rounds);
         g.output.displayStartup();
         
-        Choice userChoice;
+        Choice choice;
         Result result;
          // Continue playing game while rounds remain
          // Determine user input for each round, and take appropriate action
         while (g.roundsRemaining > 0)
         {
             g.output.displayPrompt();
-            userChoice = g.input.getUserChoice();
-            if (userChoice == null || userChoice.getValue() > 6) 
+            choice = g.input.getUserChoice();
+            if (choice == null || choice.getValue() > 6) 
             {
                 System.out.println("Invalid command. Please choose from the following: ");
                 g.output.displayHelp();
             }
-            else if (userChoice.getValue() < 4) 
+            else if (choice.getValue() < 4) 
             {
                 --g.roundsRemaining;
-                result = new Result(userChoice, g.engine.getComputerChoice(history));
+                result = new Result(choice, g.engine.getComputerChoice(history));
                 g.history.add(result);
                 g.output.displayResult(result);
             }
-            else if (userChoice.equals(Choice.HELP))
+            else if (choice.equals(Choice.HELP))
                 g.output.displayHelp();
-            else if (userChoice.equals(Choice.SCORE))
+            else if (choice.equals(Choice.SCORE))
                 g.output.displayScore(g.history.getScore());
-            else break; // (userChoice.equals(Choice.EXIT))
+            else break; // (choice.equals(Choice.EXIT))
         }
         int[] score = g.history.getScore();
         g.output.displayScore(score);
@@ -95,7 +95,14 @@ public class Game {
     {
         // create the game object with a default rounds value so we can call methods
         Game g = new Game("gui", "gui", "smart", 5);
+        
+        // get the # of rounds and 
         g.output.displayStartup();
+        
+        while (g.roundsRemaining > 0)
+        {
+            g.input.getUserChoice();
+        }
         // get the user's input for # of rounds and then change it
         //g.setRounds(the user's input at the starting prompt);
         
