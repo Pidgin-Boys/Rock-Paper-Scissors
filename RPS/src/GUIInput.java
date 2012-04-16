@@ -13,6 +13,7 @@ public class GUIInput extends javax.swing.JFrame {
      * Creates new form GUIInput
      */
     public GUIInput() {
+        
         initComponents();
     }
 
@@ -143,9 +144,40 @@ public class GUIInput extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    public static boolean isInteger(String str) {
+        if (str == null) {
+                return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+                return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+                if (length == 1) {
+                        return false;
+                }
+                i = 1;
+        }
+        for (; i < length; i++) {
+                char c = str.charAt(i);
+                if (c <= '/' || c >= ':') {
+                        return false;
+                }
+        }
+        return true;
+}
+    
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        System.out.println(jTextField2.getText());
-        System.out.println(jList2.getSelectedIndex());
+        if(jList2.getSelectedIndex() == 0){
+            engine = "smart";
+        }
+        else{
+            engine = "random";
+        }
+        if(isInteger(jTextField2.getText())){
+            rounds = Integer.parseInt(jTextField2.getText());
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -193,6 +225,8 @@ public class GUIInput extends javax.swing.JFrame {
             }
         });
     }
+    public String engine;
+    public int rounds;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
