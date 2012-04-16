@@ -169,14 +169,17 @@ public class GUIInput extends javax.swing.JFrame {
 }
     
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if(jList2.getSelectedIndex() == 0){
-            engine = "smart";
-        }
-        else{
-            engine = "random";
-        }
-        if(isInteger(jTextField2.getText())){
+        if(jList2.getSelectedIndex() > 0 && isInteger(jTextField2.getText()) && 
+                Integer.parseInt(jTextField2.getText()) > 0){
             rounds = Integer.parseInt(jTextField2.getText());
+            if(jList2.getSelectedIndex() == 0){
+                engine = "smart";
+            }
+            else{
+                engine = "random";
+            }
+            // Need to pass off to new frame and actually start the game
+            setVisible(false);
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
