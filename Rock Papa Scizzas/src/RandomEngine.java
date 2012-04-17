@@ -4,6 +4,7 @@ public class RandomEngine extends DecisionEngine
      *  @param history this parameter is ignored for random choice.
      *  @return Choice : the computer's choice
      */
+    @Override
     public Choice getComputerChoice(ResultDatabase history) 
     {
         switch((int) (Math.random() * 3 + 1)) 
