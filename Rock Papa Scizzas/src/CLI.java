@@ -2,7 +2,7 @@ public class CLI
 {
     private int rounds;
     private TextIO console;
-    private DecisionEngine engine;
+    private static DecisionEngine engine;
     private static ResultDatabase history; 
             
     public static void run(String[] args)
@@ -31,8 +31,8 @@ public class CLI
                                 + "Defaulting to the Smart AI Engine.");   
                 
         TextIO console = new TextIO();
-        ResultDatabase history = new ResultDatabase();
-        DecisionEngine engine  = DecisionEngine.make(engType);
+        history = new ResultDatabase();
+        engine  = DecisionEngine.make(engType);
         
         console.showStartup();
         Choice choice; Result result;

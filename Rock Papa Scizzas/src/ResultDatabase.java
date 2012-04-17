@@ -45,9 +45,11 @@ public class ResultDatabase
             case -1:
                 ++ties;
                 lastOutcome = "You tied";
+                break;
             case 0: 
                 ++computerWins;
                 lastOutcome = "Computer won";
+                break;
             case 1:
                 ++playerWins;
                 lastOutcome = "You won";
@@ -55,19 +57,18 @@ public class ResultDatabase
         
         // add the last N=2,3,4,5 character sequences to the map
         String u = r.getUserChoice().toString();
-        String c = r.getComputerChoice().toString();              
+        String c = r.getComputerChoice().toString();
         sequence = lastFour + u.substring(0,1);
         lastFour = sequence + c.substring(0,1);
         
-        if (lastFour.length() == 6) lastFour = lastFour.substring(2);
-          
+        if (lastFour.length() == 6) 
+            lastFour = lastFour.substring(2);
+        
         for (int i = 1; i < sequence.length(); ++i) 
             put(sequence.substring(i-1));
         
-        results.add(String.format("%s%s%s%s", results.size()+1, u, c, lastOutcome));
-        
-        // add round #, human choice, computer choice to results
-       
+        // add round #, human choice, computer choice, last outcome to results for GUI
+        results.add(String.format("%5s      %-14s%-12s%-10s", results.size()+1, u, c, lastOutcome));
     }
 
      /**@return Returns the score as int[playerWins, computerWins, ties] */
