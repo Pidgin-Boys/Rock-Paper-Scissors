@@ -3,8 +3,8 @@ public class Main
     public static void main(String[] args)
     {
         if (args.length == 0)
-            new GUI().setVisible(true);
+            new GUI();
         else
-            CLI.run(args);
+            new CLI(args);
     }
 }
