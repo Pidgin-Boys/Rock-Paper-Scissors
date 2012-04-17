@@ -17,7 +17,7 @@ public class GUI extends javax.swing.JFrame
         history = new ResultDatabase();
         initComponents();
         dimensions = getSize();
-        layerPane.getComponentsInLayer(1)[0].setVisible(false); // hide main menu for now
+        initialPanel.setVisible(false);
         setSize(initialPanel.getSize());
     }
     
