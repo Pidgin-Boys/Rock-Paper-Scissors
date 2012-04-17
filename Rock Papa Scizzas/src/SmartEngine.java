@@ -11,6 +11,7 @@ public class SmartEngine extends DecisionEngine
      * @param history the ResultDatabase containing the throw history
      * @return Choice : the computer's predictively determined choice
      */
+    @Override
     public Choice getComputerChoice(ResultDatabase history) 
     {     
         int r, p, s; r = p = s = 0;
