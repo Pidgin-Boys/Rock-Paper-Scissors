@@ -5,11 +5,8 @@ public class CLI
     private static DecisionEngine engine;
     private static ResultDatabase history; 
             
-    public static void run(String[] args)
-    {
-        int rounds = 5;
-        String engType = "smart";
-        
+    public CLI(String[] args)
+    {   
         // get the number of rounds and engine type from the first two arguments
         try { rounds = Integer.parseInt(args[0]); }
         catch (NumberFormatException ex) 
@@ -17,7 +14,9 @@ public class CLI
             System.out.println("Invalid rounds argument (arg1). Must be a positive integer.");
             System.exit(0);
         }
-        if (args.length == 2) 
+        
+        String engType = "smart";
+        if (args.length == 2)
         {
             engType = args[1].toLowerCase();
             if (!engType.equals("random") && !engType.equals("smart") /* && !engType.equals("predictive") */)
@@ -30,7 +29,7 @@ public class CLI
         else System.out.println("No second argument provided. Must be 'smart' or 'random'\n"
                                 + "Defaulting to the Smart AI Engine.");   
                 
-        TextIO console = new TextIO();
+        console = new TextIO();
         history = new ResultDatabase();
         engine  = DecisionEngine.make(engType);
         
