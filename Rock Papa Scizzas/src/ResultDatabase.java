@@ -35,9 +35,7 @@ public class ResultDatabase
      * @return true if the result was added to the database successfully
      */
     public void add(Result r) 
-    {        
-        //sequence = lastFour + r.getUserChoice().toString().substring(0,1);
-        //lastFour = sequence + r.getComputerChoice().toString().substring(0,1);
+    {
         // tally wins/losses/draws and store last outcome
         switch(r.getOutcome()) 
         {
@@ -52,9 +50,9 @@ public class ResultDatabase
             case 1:
                 ++playerWins;
                 lastOutcome = "You won";
-        }
-        
-        // add the last N=2,3,4,5 character sequences to the map
+        }        
+        // add the last N=2,3,4,5 character sequences (end w/ human throw) to the map
+        // also keep track of the last four moves (ending with ai throw)
         String u = r.getUserChoice().toString();
         String c = r.getComputerChoice().toString();
         sequence = lastFour + u.substring(0,1);
@@ -71,14 +69,7 @@ public class ResultDatabase
     }
 
      /**@return Returns the score as int[playerWins, computerWins, ties] */
-    public int[] getScore()
-    {
-        int[] score = new int[3];
-        score[0] = playerWins;
-        score[1] = computerWins;
-        score[2] = ties;
-        return score;
-    }
+    public int[] getScore() { return new int[]{ playerWins, computerWins, ties}; }
         
     /**@param n Number of moves to get (PRECONDITION: n <= 4)
      * @return String : the sequence of the last n moves such as "RPSS"
