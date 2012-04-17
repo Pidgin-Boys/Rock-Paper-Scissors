@@ -35,11 +35,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="607" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="637" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="layerPane" pref="585" max="32767" attributes="0"/>
+                  <Component id="layerPane" pref="615" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -54,7 +54,7 @@
         <Container class="javax.swing.JPanel" name="gamePanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-              <JLayeredPaneConstraints x="0" y="-10" width="620" height="600" layer="1" position="-1"/>
+              <JLayeredPaneConstraints x="0" y="-10" width="620" height="630" layer="1" position="-1"/>
             </Constraint>
           </Constraints>
 
@@ -71,7 +71,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="listAreaLayerPane" pref="555" max="32767" attributes="0"/>
+                      <Component id="listAreaLayerPane" pref="585" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="menuPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -168,31 +168,26 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-                      <JLayeredPaneConstraints x="0" y="0" width="600" height="560" layer="2" position="-1"/>
+                      <JLayeredPaneConstraints x="0" y="0" width="600" height="-1" layer="2" position="-1"/>
                     </Constraint>
                   </Constraints>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="resultLabel" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="scoreLabel" min="-2" pref="320" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
                                       <Component id="predictionLabel" min="-2" pref="390" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="resultLabel" max="32767" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="scoreLabel" min="-2" pref="320" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="roundHistoryScrollPane" min="-2" pref="578" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="roundHistoryScrollPane" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -201,10 +196,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="roundHistoryScrollPane" pref="491" max="32767" attributes="0"/>
+                              <Component id="roundHistoryScrollPane" pref="519" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="predictionLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="resultLabel" min="-2" pref="26" max="-2" attributes="0"/>
                                   <Component id="scoreLabel" min="-2" pref="26" max="-2" attributes="0"/>
@@ -280,8 +275,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="helpText" pref="610" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="helpText" min="-2" pref="599" max="-2" attributes="0"/>
+                              <EmptySpace pref="21" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,8 +16,8 @@ public class ResultDatabase
      */
     public ResultDatabase() 
     {
-        results = new LinkedList<String>();
-        sequences = new HashMap<String, Integer>();
+        results = new LinkedList<>();
+        sequences = new HashMap<>();
         ties = playerWins = computerWins = 0;
         sequence = lastFour  = "";
     }

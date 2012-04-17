@@ -5,7 +5,8 @@ import java.util.LinkedList;
 
 public class GUI extends javax.swing.JFrame
 {   
-    private Integer rounds;
+    private Integer round;
+    private Integer maxRounds;
     private DecisionEngine engine;
     private Dimension dimensions;
     private static ResultDatabase history;    
@@ -17,7 +18,7 @@ public class GUI extends javax.swing.JFrame
         initComponents();
         dimensions = getSize(); // store the size of the main window
         setSize(initialPanel.getSize()); // resize to startup menu
-        //helpPanel.setVisible(false);
+        this.round = 0;
     }
     
     /**
@@ -132,32 +133,29 @@ public class GUI extends javax.swing.JFrame
             .addGroup(roundHistoryPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundHistoryPanelLayout.createSequentialGroup()
+                        .addComponent(resultLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundHistoryPanelLayout.createSequentialGroup()
                         .addComponent(predictionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                        .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                                .addComponent(resultLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE))))
+                        .addGap(0, 200, Short.MAX_VALUE))
+                    .addComponent(roundHistoryScrollPane)))
         );
         roundHistoryPanelLayout.setVerticalGroup(
             roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundHistoryPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(predictionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        roundHistoryPanel.setBounds(0, 0, 600, 560);
+        roundHistoryPanel.setBounds(0, 0, 600, 583);
         listAreaLayerPane.add(roundHistoryPanel, new Integer(2));
 
         helpText.setBackground(new java.awt.Color(240, 240, 240));
@@ -174,8 +172,8 @@ public class GUI extends javax.swing.JFrame
             helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(helpPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(helpText, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(helpText, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         helpPanelLayout.setVerticalGroup(
             helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,12 +198,12 @@ public class GUI extends javax.swing.JFrame
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gamePanelLayout.createSequentialGroup()
-                .addComponent(listAreaLayerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(listAreaLayerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        gamePanel.setBounds(0, -10, 620, 600);
+        gamePanel.setBounds(0, -10, 620, 630);
         layerPane.add(gamePanel, new Integer(1));
 
         aiField.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -315,11 +313,11 @@ public class GUI extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
+            .addGap(0, 637, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -328,20 +326,21 @@ public class GUI extends javax.swing.JFrame
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         String engType = (String) aiField.getSelectedValue();
-        try { rounds = Integer.valueOf(roundsField.getText()); }
+        try { maxRounds = Integer.valueOf(roundsField.getText()); }
         catch (NumberFormatException e) {}
         
         String error = null;
         if (engType == null)
         {
-            error = (rounds == null)
-                    ? "You must select an engine type and number of rounds."
+            error = (maxRounds == null)
+                    ? "You must select an engine type and number of round."
                     : "You must select an engine type to continue.";
         }
-        else error = "You must enter the number of rounds to continue.";
+        else if (maxRounds == null)
+            error = "You must enter the number of round to continue.";
         errorMessageLabel.setText(error);        
         
-        if (engType != null && rounds != null)
+        if (engType != null && round != null)
         {
             initialPanel.setVisible(false);
             gamePanel.setVisible(true);
@@ -379,10 +378,10 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
     {
         switch (choice.getValue()) 
         {
-            case 1:
-            case 2:
-            case 3:
-                --this.rounds;
+            case 1: // rock
+            case 2: // paper
+            case 3: // scissors
+                ++round;
                 
                 // add the result to the database
                 Result result = new Result(choice, engine.getComputerChoice(history));
@@ -407,13 +406,13 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 scoreLabel.setText(String.format("Wins: %s Losses: %s Draws: %s", s[0], s[1], s[2]));
                 
                 // update last result
-                resultLabel.setText(history.getLastOutcome() + " the last round.");                
+                resultLabel.setText(String.format("%s round %d / %d.", history.getLastOutcome(), round, maxRounds));
                 
                 // display results in descending order
                 final int numberToDisplay = 100;
                 LinkedList<String> results = history.getResults();
                 Iterator<String> iter = results.descendingIterator();
-                ArrayList<String> listData = new ArrayList<String>(numberToDisplay);
+                ArrayList<String> listData = new ArrayList<>(numberToDisplay);
                 listData.add(listTop);
                 
                 int i = 0;
@@ -421,7 +420,8 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                     listData.add(iter.next());
                 roundHistoryList.setListData(listData.toArray());
                 
-                if (this.rounds == 0) 
+                // check for game over
+                if (round == maxRounds) 
                 {
                     setVisible(false);
                     dispose();
@@ -435,7 +435,7 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                     paperButton.setEnabled(false);
                     scissorsButton.setEnabled(false);  
                     roundHistoryPanel.setVisible(false);
-                    helpButton.setText("Help");
+                    helpButton.setText("Resume");
                 }
                 else
                 {
@@ -443,10 +443,15 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                     paperButton.setEnabled(true);
                     scissorsButton.setEnabled(true);  
                     roundHistoryPanel.setVisible(true);
-                    helpButton.setText("Resume");
+                    helpButton.setText("Help");
                 }                
                 break;
             case 6:
+                int[] score = history.getScore();
+                if (score[0] > score[1])
+                {
+                    
+                }
                 setVisible(false);
                 dispose();
                 System.exit(0);           
