@@ -453,8 +453,7 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                     rockButton.setEnabled(false);
                     paperButton.setEnabled(false);
                     scissorsButton.setEnabled(false);               
-                }
-                
+                }                
                 // display results in descending order
                 final int numberToDisplay = 100;
                 LinkedList<String> results = history.getResults();
