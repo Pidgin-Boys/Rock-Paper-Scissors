@@ -9,8 +9,10 @@ public class GUI extends javax.swing.JFrame
     private Integer maxRounds;
     private DecisionEngine engine;
     private Dimension dimensions;
+    private String listTop = " Round # | Your Choice | AI Choice | Result ";
     private static ResultDatabase history;    
-    private static final String listTop = " Round # | Your Choice | AI Choice | Result ";
+    private static final String predictionText = "Select Rock, Paper, or Scissors below to begin playing.";
+    private static final String scoreText = "Wins: 0 Losses: 0 Draws: 0";
     
     public GUI() 
     {
@@ -18,7 +20,9 @@ public class GUI extends javax.swing.JFrame
         initComponents();
         dimensions = getSize(); // store the size of the main window
         setSize(initialPanel.getSize()); // resize to startup menu
-        this.round = 0;
+        round = 0;
+        roundHistoryList.setListData(new String[]{listTop});
+        setVisible(true);
     }
     
     /**
@@ -36,7 +40,8 @@ public class GUI extends javax.swing.JFrame
         rockButton = new javax.swing.JButton();
         paperButton = new javax.swing.JButton();
         scissorsButton = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(20, 20), new java.awt.Dimension(10, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(30, 20), new java.awt.Dimension(10, 32767));
+        newGameButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         listAreaLayerPane = new javax.swing.JLayeredPane();
@@ -91,6 +96,18 @@ public class GUI extends javax.swing.JFrame
         menuPanel.add(scissorsButton);
         menuPanel.add(filler1);
 
+        newGameButton.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        newGameButton.setText("New Game");
+        newGameButton.setMaximumSize(new java.awt.Dimension(110, 29));
+        newGameButton.setMinimumSize(new java.awt.Dimension(110, 29));
+        newGameButton.setPreferredSize(new java.awt.Dimension(120, 30));
+        newGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameButtonActionPerformed(evt);
+            }
+        });
+        menuPanel.add(newGameButton);
+
         helpButton.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         helpButton.setText("Help");
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -132,15 +149,14 @@ public class GUI extends javax.swing.JFrame
             roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundHistoryPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundHistoryPanelLayout.createSequentialGroup()
-                        .addComponent(resultLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(predictionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                        .addComponent(predictionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 200, Short.MAX_VALUE))
-                    .addComponent(roundHistoryScrollPane)))
+                        .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         roundHistoryPanelLayout.setVerticalGroup(
             roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +171,7 @@ public class GUI extends javax.swing.JFrame
                     .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        roundHistoryPanel.setBounds(0, 0, 600, 583);
+        roundHistoryPanel.setBounds(0, 0, 610, 583);
         listAreaLayerPane.add(roundHistoryPanel, new Integer(2));
 
         helpText.setBackground(new java.awt.Color(240, 240, 240));
@@ -163,7 +179,7 @@ public class GUI extends javax.swing.JFrame
         helpText.setEditable(false);
         helpText.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         helpText.setRows(5);
-        helpText.setText("To play this Rock-Paper-Scissors game simply click one of the\n\"Rock\", \"Paper\", or \"Scissors\" buttons shown at the bottom of the\nscreen.\n\nWhen you make a selection, the computer will calculate its choice\nbased on the AI Engine you chose at startup. Then, the result and\nup to 99 previous results will be displayed in a descending list in \nthe center of the window.\n\nAt the bottom of the window a running tally of the score will be\ndisplayed, as well as the computer's prediction of your next move\nand whether you won, lost, or tied in the last round.\n\nTo return to the game, click \"resume\" below.");
+        helpText.setText("To play this Rock-Paper-Scissors game simply click one of the\n\"Rock\", \"Paper\", or \"Scissors\" buttons shown at the bottom of the\nscreen.\n\nWhen you make a selection, the computer will calculate its choice\nbased on the AI Engine you chose at startup. Then, the result and\nup to 99 previous results will be displayed in a descending list in \nthe center of the window.\n\nAt the bottom of the window a running tally of the score will be\ndisplayed, as well as the computer's prediction of your next move\nand whether you won, lost, or tied in the last round.\n\nTo return to the game, click \"Help\" below.");
         helpText.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Help", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 20))); // NOI18N
 
         javax.swing.GroupLayout helpPanelLayout = new javax.swing.GroupLayout(helpPanel);
@@ -172,38 +188,38 @@ public class GUI extends javax.swing.JFrame
             helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(helpPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(helpText, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(helpText, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                .addContainerGap())
         );
         helpPanelLayout.setVerticalGroup(
             helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpPanelLayout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
-                .addComponent(helpText, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(helpText, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115))
         );
 
-        helpPanel.setBounds(-10, 0, 630, 550);
+        helpPanel.setBounds(-10, 0, 590, 590);
         listAreaLayerPane.add(helpPanel, new Integer(1));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanelLayout.createSequentialGroup()
-                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addComponent(listAreaLayerPane)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
+                .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gamePanelLayout.createSequentialGroup()
-                .addComponent(listAreaLayerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addComponent(listAreaLayerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        gamePanel.setBounds(0, -10, 620, 630);
+        gamePanel.setBounds(0, -10, 600, 630);
         layerPane.add(gamePanel, new Integer(1));
 
         aiField.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -305,11 +321,11 @@ public class GUI extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)))
+                    .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,6 +390,22 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
     processChoice(Choice.SCISSORS);
 }//GEN-LAST:event_scissorsButtonActionPerformed
 
+    private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
+        // reset EVERYTHING and make the initial panel visible again
+        round = 0;
+        setSize(initialPanel.getSize());
+        initialPanel.setVisible(true);
+        history = new ResultDatabase();
+        listTop = " Round # | Your Choice | AI Choice | Result ";
+        roundHistoryList.setListData(new String[]{listTop});
+        rockButton.setEnabled(true);
+        paperButton.setEnabled(true);
+        scissorsButton.setEnabled(true);
+        predictionLabel.setText(predictionText);
+        scoreLabel.setText(scoreText);
+        resultLabel.setText(null);
+    }//GEN-LAST:event_newGameButtonActionPerformed
+
     private void processChoice(Choice choice)
     {
         switch (choice.getValue()) 
@@ -408,6 +440,21 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 // update last result
                 resultLabel.setText(String.format("%s round %d / %d.", history.getLastOutcome(), round, maxRounds));
                 
+                // check for game over
+                if (round >= maxRounds) 
+                {
+                    int[] score = history.getScore();
+                    if (score[0] > score[1])
+                        listTop = "You won! Click \"New Game\" to start a new game.";
+                    else if (score[0] < score[1])
+                        listTop = "You lost! Click \"New Game\" to start a new game.";
+                    else
+                        listTop = "You tied! Click \"New Game\" to start a new game.";
+                    rockButton.setEnabled(false);
+                    paperButton.setEnabled(false);
+                    scissorsButton.setEnabled(false);               
+                }
+                
                 // display results in descending order
                 final int numberToDisplay = 100;
                 LinkedList<String> results = history.getResults();
@@ -419,39 +466,30 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 while(++i < numberToDisplay+1 && iter.hasNext())
                     listData.add(iter.next());
                 roundHistoryList.setListData(listData.toArray());
-                
-                // check for game over
-                if (round == maxRounds) 
-                {
-                    setVisible(false);
-                    dispose();
-                    System.exit(0);
-                }
                 break;
             case 4: 
+                // hide the round history to show the help text and vice versa
                 if (roundHistoryPanel.isVisible())
                 {
                     rockButton.setEnabled(false);      
                     paperButton.setEnabled(false);
                     scissorsButton.setEnabled(false);  
                     roundHistoryPanel.setVisible(false);
-                    helpButton.setText("Resume");
+                    helpButton.setText("Back");
                 }
                 else
-                {
-                    rockButton.setEnabled(true);      
-                    paperButton.setEnabled(true);
-                    scissorsButton.setEnabled(true);  
+                {   // don't reactivate buttons if game over
+                    if (round < maxRounds)
+                    {
+                        rockButton.setEnabled(true);      
+                        paperButton.setEnabled(true);
+                        scissorsButton.setEnabled(true);  
+                    }
                     roundHistoryPanel.setVisible(true);
                     helpButton.setText("Help");
                 }                
                 break;
             case 6:
-                int[] score = history.getScore();
-                if (score[0] > score[1])
-                {
-                    
-                }
                 setVisible(false);
                 dispose();
                 System.exit(0);           
@@ -475,6 +513,7 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JLayeredPane listAreaLayerPane;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JButton newGameButton;
     private javax.swing.JButton okButton;
     private javax.swing.JButton paperButton;
     private javax.swing.JLabel predictionLabel;
