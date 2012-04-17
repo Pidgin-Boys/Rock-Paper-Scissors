@@ -1,16 +1,24 @@
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class GUI extends javax.swing.JFrame
 {   
-    private int rounds;
+    private Integer rounds;
     private DecisionEngine engine;
+    private Dimension dimensions;
     private static ResultDatabase history;
+    
+    private static final String listTop = " Round # | Your Choice | Computer Choice | Result ";
     
     public GUI() 
     {
         history = new ResultDatabase();
         initComponents();
+        dimensions = getSize();
         layerPane.getComponentsInLayer(1)[0].setVisible(false); // hide main menu for now
+        setSize(initialPanel.getSize());
     }
     
     /**
@@ -24,20 +32,21 @@ public class GUI extends javax.swing.JFrame
 
         layerPane = new javax.swing.JLayeredPane();
         gamePanel = new javax.swing.JPanel();
-        roundHistoryPanel = new javax.swing.JPanel();
-        roundHistoryLabel = new javax.swing.JLabel();
-        aboveHistoryListLabel = new javax.swing.JLabel();
-        predictionLabel = new javax.swing.JLabel();
-        scoreLabel = new javax.swing.JLabel();
-        roundHistoryScrollPane = new javax.swing.JScrollPane();
-        roundHistoryList = new javax.swing.JList();
         menuPanel = new javax.swing.JPanel();
         rockButton = new javax.swing.JButton();
         paperButton = new javax.swing.JButton();
         scissorsButton = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(15, 15), new java.awt.Dimension(10, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(20, 20), new java.awt.Dimension(10, 32767));
         helpButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        listAreaLayerPane = new javax.swing.JLayeredPane();
+        roundHistoryPanel = new javax.swing.JPanel();
+        predictionLabel = new javax.swing.JLabel();
+        scoreLabel = new javax.swing.JLabel();
+        roundHistoryScrollPane = new javax.swing.JScrollPane();
+        roundHistoryList = new javax.swing.JList();
+        helpPanel = new javax.swing.JPanel();
+        helpLabel = new javax.swing.JLabel();
         initialPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         aiChoiceList = new javax.swing.JScrollPane();
@@ -51,62 +60,7 @@ public class GUI extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rock Paper Scissors");
-
-        gamePanel.setLayout(new java.awt.BorderLayout());
-
-        roundHistoryPanel.setMaximumSize(new java.awt.Dimension(32765, 32765));
-
-        roundHistoryLabel.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        roundHistoryLabel.setText("Round History");
-
-        aboveHistoryListLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        aboveHistoryListLabel.setText("Round | Your Choice | Computer's Choice | Result");
-
-        predictionLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        predictionLabel.setText("The computer predicted you would choose scissors.");
-
-        scoreLabel.setBackground(new java.awt.Color(250, 250, 250));
-        scoreLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        scoreLabel.setText("Wins:          Losses:          Draws:    ");
-
-        roundHistoryList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        roundHistoryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        roundHistoryList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        roundHistoryScrollPane.setViewportView(roundHistoryList);
-
-        javax.swing.GroupLayout roundHistoryPanelLayout = new javax.swing.GroupLayout(roundHistoryPanel);
-        roundHistoryPanel.setLayout(roundHistoryPanelLayout);
-        roundHistoryPanelLayout.setHorizontalGroup(
-            roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(predictionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                    .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                        .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scoreLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roundHistoryLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(aboveHistoryListLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        roundHistoryPanelLayout.setVerticalGroup(
-            roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundHistoryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(roundHistoryLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(aboveHistoryListLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(predictionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scoreLabel))
-        );
-
-        gamePanel.add(roundHistoryPanel, java.awt.BorderLayout.PAGE_START);
+        setResizable(false);
 
         menuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -156,7 +110,84 @@ public class GUI extends javax.swing.JFrame
         });
         menuPanel.add(exitButton);
 
-        gamePanel.add(menuPanel, java.awt.BorderLayout.PAGE_END);
+        roundHistoryPanel.setMaximumSize(new java.awt.Dimension(32765, 32765));
+
+        predictionLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        scoreLabel.setBackground(new java.awt.Color(250, 250, 250));
+        scoreLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        roundHistoryList.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        roundHistoryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        roundHistoryList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        roundHistoryScrollPane.setViewportView(roundHistoryList);
+
+        javax.swing.GroupLayout roundHistoryPanelLayout = new javax.swing.GroupLayout(roundHistoryPanel);
+        roundHistoryPanel.setLayout(roundHistoryPanelLayout);
+        roundHistoryPanelLayout.setHorizontalGroup(
+            roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundHistoryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(predictionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                    .addGroup(roundHistoryPanelLayout.createSequentialGroup()
+                        .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundHistoryPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        roundHistoryPanelLayout.setVerticalGroup(
+            roundHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundHistoryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(roundHistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(predictionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        roundHistoryPanel.setBounds(0, 0, 450, 577);
+        listAreaLayerPane.add(roundHistoryPanel, new Integer(2));
+
+        helpLabel.setText("blah blah blah i'm a help dialogue");
+
+        javax.swing.GroupLayout helpPanelLayout = new javax.swing.GroupLayout(helpPanel);
+        helpPanel.setLayout(helpPanelLayout);
+        helpPanelLayout.setHorizontalGroup(
+            helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(helpPanelLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(helpLabel)
+                .addContainerGap(171, Short.MAX_VALUE))
+        );
+        helpPanelLayout.setVerticalGroup(
+            helpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(helpPanelLayout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(helpLabel)
+                .addContainerGap(277, Short.MAX_VALUE))
+        );
+
+        helpPanel.setBounds(10, 80, 410, 380);
+        listAreaLayerPane.add(helpPanel, new Integer(1));
+
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(listAreaLayerPane, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gamePanelLayout.createSequentialGroup()
+                .addComponent(listAreaLayerPane, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         gamePanel.setBounds(0, 0, 450, 600);
         layerPane.add(gamePanel, new Integer(1));
@@ -178,7 +209,6 @@ public class GUI extends javax.swing.JFrame
 
         roundsField.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
-        cancelButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setActionCommand("cancelButton");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +217,6 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
-        okButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         okButton.setText("OK");
         okButton.setActionCommand("okButton");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -203,22 +232,24 @@ public class GUI extends javax.swing.JFrame
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roundsLabel)
-                            .addComponent(aiLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(aiChoiceList, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(roundsField)))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(roundsLabel)
+                                    .addComponent(aiLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(aiChoiceList, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                                    .addComponent(roundsField))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(okButton)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton)
-                        .addGap(77, 77, 77)))
-                .addContainerGap())
+                        .addGap(114, 114, 114))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,12 +262,12 @@ public class GUI extends javax.swing.JFrame
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundsLabel)
                     .addComponent(roundsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okButton)
+                    .addComponent(cancelButton))
+                .addGap(43, 43, 43)
+                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -244,19 +275,16 @@ public class GUI extends javax.swing.JFrame
         initialPanel.setLayout(initialPanelLayout);
         initialPanelLayout.setHorizontalGroup(
             initialPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, initialPanelLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(initialPanelLayout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         initialPanelLayout.setVerticalGroup(
             initialPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(initialPanelLayout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 208, Short.MAX_VALUE))
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
         );
 
-        initialPanel.setBounds(0, 160, 430, 460);
+        initialPanel.setBounds(-10, -10, 400, 200);
         layerPane.add(initialPanel, new Integer(2));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,17 +312,26 @@ public class GUI extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        Integer rounds = null;
         String engType = (String) aiField.getSelectedValue();
         try { rounds = Integer.valueOf(roundsField.getText()); }
         catch (NumberFormatException e) {}
         
+        String error = null;
+        if (engType == null)
+        {
+            error = (rounds == null)
+                    ? "You must select an engine type and number of rounds."
+                    : "You must select an engine type to continue.";
+        }
+        else error = "You must enter the number of rounds";
+        errorMessageLabel.setText(error);        
+        
         if (engType != null && rounds != null) 
         {
-            layerPane.getComponentsInLayer(2)[0].setVisible(false); // hide initial prompt
-            this.rounds = rounds;
-            this.engine = DecisionEngine.make(engType);
-            layerPane.getComponentsInLayer(1)[0].setVisible(true); // show main menu
+            initialPanel.setVisible(false);
+            gamePanel.setVisible(true);
+            engine = DecisionEngine.make(engType);
+            setSize(dimensions);
         }
     }//GEN-LAST:event_okButtonActionPerformed
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -308,7 +345,7 @@ private void paperButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_paperButtonActionPerformed
 
 private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // Replace the list object with help instructions or open dialog box
+    processChoice(Choice.HELP);   
 }//GEN-LAST:event_helpButtonActionPerformed
 
 private void rockButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rockButtonActionPerformed
@@ -316,9 +353,7 @@ private void rockButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_rockButtonActionPerformed
 
 private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-    setVisible(false);
-    dispose();
-    System.exit(0);
+    processChoice(Choice.EXIT);
 }//GEN-LAST:event_exitButtonActionPerformed
 
 private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scissorsButtonActionPerformed
@@ -333,26 +368,67 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
             case 2:
             case 3:
                 --this.rounds;
+                
+                // add the result to the database
                 Result result = new Result(choice, engine.getComputerChoice(history));
                 history.add(result);
-                roundHistoryList.set
-                // TODO update the display
+                
+                // get the next predicted move and display
+                Choice predicted = engine.getComputerChoice(history);
+                if (predicted.equals(Choice.ROCK)) 
+                    predicted = Choice.SCISSORS;
+                else if (predicted.equals(Choice.PAPER)) 
+                    predicted = Choice.ROCK;
+                else
+                    predicted = Choice.PAPER;
+                if (!(engine instanceof RandomEngine))
+                    predictionLabel.setText("The computer predicts you will play " + predicted);                    
+                
+                // display results in descending order
+                final int numberToDisplay = 100;
+                LinkedList<String> results = history.getResults();
+                Iterator<String> iter = results.descendingIterator();
+                ArrayList<String> listData = new ArrayList<String>(numberToDisplay);
+                listData.add(listTop);
+                
+                int i = 0;
+                while(++i < numberToDisplay+1 && iter.hasNext())
+                    listData.add(iter.next());
+                roundHistoryList.setListData(listData.toArray());
+                
                 if (this.rounds == 0) 
                 {
-                    // works | layerPane.getComponentsInLayer(1)[0].setVisible(false);
-                    // alter the display to indicate the match is over
+                    setVisible(false);
+                    dispose();
+                    System.exit(0);
                 }
                 break;
-            case 4:
-                // TODO show help menu
+            case 4: 
+                if (helpPanel.isVisible())
+                {
+                    rockButton.setEnabled(true);      
+                    paperButton.setEnabled(true);
+                    scissorsButton.setEnabled(true);  
+                    helpPanel.setVisible(false);
+                    helpLabel.setText("Resume");
+                }
+                else
+                {
+                    rockButton.setEnabled(false);      
+                    paperButton.setEnabled(false);
+                    scissorsButton.setEnabled(false);  
+                    helpPanel.setVisible(true);
+                    helpLabel.setText("Pause");
+                }                
                 break;
             case 6:
-                System.exit(0);                 
+                setVisible(false);
+                dispose();
+                System.exit(0);           
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel aboveHistoryListLabel;
     private javax.swing.JScrollPane aiChoiceList;
     private javax.swing.JList aiField;
     private javax.swing.JLabel aiLabel;
@@ -362,15 +438,17 @@ private void scissorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel gamePanel;
     private javax.swing.JButton helpButton;
+    private javax.swing.JLabel helpLabel;
+    private javax.swing.JPanel helpPanel;
     private javax.swing.JPanel initialPanel;
     private javax.swing.JLayeredPane layerPane;
+    private javax.swing.JLayeredPane listAreaLayerPane;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton okButton;
     private javax.swing.JButton paperButton;
     private javax.swing.JLabel predictionLabel;
     private javax.swing.JButton rockButton;
-    private javax.swing.JLabel roundHistoryLabel;
     private javax.swing.JList roundHistoryList;
     private javax.swing.JPanel roundHistoryPanel;
     private javax.swing.JScrollPane roundHistoryScrollPane;

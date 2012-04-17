@@ -17,10 +17,10 @@ public class SmartEngine extends DecisionEngine
         
         for (int n = 1; n < 5; ++n) 
         {
-            String nLastMoves = history.getLastNMoves(n);            
-            r += history.getOccurrences(nLastMoves + "R");
-            p += history.getOccurrences(nLastMoves + "P");
-            s += history.getOccurrences(nLastMoves + "S");            
+            String lastNMoves = history.getLastNMoves(n);            
+            r += history.getOccurrences(lastNMoves + "R");
+            p += history.getOccurrences(lastNMoves + "P");
+            s += history.getOccurrences(lastNMoves + "S");            
         }
         
         if (r < 3 && p < 3 && s < 3)

@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class ResultDatabase 
 {
-    private ArrayList<ArrayList<String>> results;
+    private LinkedList<String> results;
     private HashMap<String, Integer> sequences;
     private int ties, playerWins, computerWins;
-    private String sequence, lastFour;
+    private String sequence, lastFour, lastOutcome;
     
     /**Creates a new ResultDatabase that keeps track of wins, losses, and ties.
      * Uses a HashMap to map throw sequences to number of occurrences
@@ -16,7 +17,7 @@ public class ResultDatabase
      */
     public ResultDatabase() 
     {
-        results = new ArrayList<ArrayList<String>>();
+        results = new LinkedList<String>();
         sequences = new HashMap<String, Integer>();
         ties = playerWins = computerWins = 0;
         sequence = lastFour  = "";
@@ -34,39 +35,39 @@ public class ResultDatabase
     /**@param r - the result to add to the database
      * @return true if the result was added to the database successfully
      */
-    public boolean add(Result r) 
-    {   
-        String u = r.getUserChoice().toString();
-        String c = r.getComputerChoice().toString();
-        // add round #, human choice, computer choice to results
-        results.get(0).add(String.valueOf(results.get(0).size()-1));
-        results.get(1).add(u.toString());
-        results.get(2).add(c.toString());
-        
-        sequence = lastFour + u.substring(0,1);
-        lastFour = sequence + u.toString().substring(0,1);
-        if (lastFour.length() == 6) lastFour = lastFour.substring(2);
-        
-        // add the last N=2,3,4,5 character sequences to the map
-        for (int i = 1; i < sequence.length(); ++i) 
-            put(sequence.substring(i-1));
-        
-        // tally wins/losses/draws and add that description to results
+    public void add(Result r) 
+    {        
+        //sequence = lastFour + r.getUserChoice().toString().substring(0,1);
+        //lastFour = sequence + r.getComputerChoice().toString().substring(0,1);
+        // tally wins/losses/draws and store last outcome
         switch(r.getOutcome()) 
         {
             case -1:
                 ++ties;
-                results.get(3).add("Draw");
-                return true;
+                lastOutcome = "You tied";
             case 0: 
                 ++computerWins;
-                results.get(3).add("Loss"); 
-                return true;
-            default:
+                lastOutcome = "Computer won";
+            case 1:
                 ++playerWins;
-                results.get(3).add("Win");
-                return true;
+                lastOutcome = "You won";
         }
+        
+        // add the last N=2,3,4,5 character sequences to the map
+        String u = r.getUserChoice().toString();
+        String c = r.getComputerChoice().toString();              
+        sequence = lastFour + u.substring(0,1);
+        lastFour = sequence + c.substring(0,1);
+        
+        if (lastFour.length() == 6) lastFour = lastFour.substring(2);
+          
+        for (int i = 1; i < sequence.length(); ++i) 
+            put(sequence.substring(i-1));
+        
+        results.add(String.format("%s%s%s%s", results.size()+1, u, c, lastOutcome));
+        
+        // add round #, human choice, computer choice to results
+       
     }
 
      /**@return Returns the score as int[playerWins, computerWins, ties] */
@@ -96,5 +97,7 @@ public class ResultDatabase
         return occ != null ? occ : 0;
     }
     
-    public ArrayList<ArrayList<String>> getResults() { return results; }    
+    public LinkedList<String> getResults() { return results; }    
+    
+    public String getLastOutcome() { return lastOutcome; }
 }
