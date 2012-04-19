@@ -343,7 +343,7 @@ public class GUI extends javax.swing.JFrame
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         String engType = (String) aiField.getSelectedValue();
         try { maxRounds = Integer.valueOf(roundsField.getText()); }
-        catch (NumberFormatException e) {}
+        catch (NumberFormatException e) { }
         
         String error = null;
         if (engType == null)
@@ -354,15 +354,14 @@ public class GUI extends javax.swing.JFrame
         }
         else if (maxRounds == null)
             error = "You must enter the number of round to continue.";
-        errorMessageLabel.setText(error);        
-        
-        if (engType != null && round != null)
+        else
         {
             initialPanel.setVisible(false);
             gamePanel.setVisible(true);
             engine = DecisionEngine.make(engType.toLowerCase());
             setSize(dimensions);
         }
+        errorMessageLabel.setText(error);
     }//GEN-LAST:event_okButtonActionPerformed
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         setVisible(false);
